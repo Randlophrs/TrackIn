@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\LoanController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -24,3 +25,10 @@ Route::get('/items/{id}', [ItemController::class, 'show'])->name('items.show')->
 Route::get('/items/{id}/edit', [ItemController::class, 'edit'])->name('items.edit')->middleware('auth');
 Route::put('/items/{id}', [ItemController::class, 'update'])->name('items.update')->middleware('auth');
 Route::delete('/items/{id}', [ItemController::class, 'destroy'])->name('items.destroy')->middleware('auth');
+
+Route::get('/history', [LoanController::class, 'history'])->name('history')->middleware('auth');
+
+Route::get('/loan', [LoanController::class, 'index'])->name('loan')->middleware('auth');
+Route::post('/loans/{loan}/return', [LoanController::class, 'returnLoan'])->name('loans.return');
+
+Route::get('/notifications', [AuthController::class, 'showNotifications'])->name('notification')->middleware('auth');

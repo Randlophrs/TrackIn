@@ -9,7 +9,6 @@ class ItemController extends Controller
 {
     public function index()
     {
-        // Logic to retrieve and display all items
         $items = Item::with('category')->get();
 
         return view('items.index', compact('items'));

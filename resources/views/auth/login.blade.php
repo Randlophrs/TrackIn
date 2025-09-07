@@ -43,7 +43,7 @@
                     </div> --}}
 
                     <button type="submit"
-                        class="text-base w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-xl font-semibold mt-5" >LogIn</button>
+                        class="text-base w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-xl font-semibold mt-5">LogIn</button>
                 </form>
                 <p class="mt-6 text-base text-center">
                     Belum Punya Akun ? <a href="{{ route('register') }}"
@@ -52,7 +52,6 @@
             </div>
         </div>
 
-        <!-- Right: Warehouse Image -->
         <div class="w-1/2 relative">
             <img src="{{ asset('images/warehouse.png')}}" alt="Warehouse" class="object-cover w-full h-full">
         </div>

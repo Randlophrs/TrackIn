@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('loan_details', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_id')->constrained('loans')->onDelete('cascade');
-            $table->foreignId('item_id')->constrained('items')->onDelete('cascade');
-            $table->integer('quantity');
+            $table->unsignedBigInteger('user_id');
+            $table->string('title');
+            $table->text('message');
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('loan_details');
+        Schema::dropIfExists('notifications');
     }
 };

@@ -67,7 +67,6 @@
             </div>
         </div>
 
-        <!-- Right: Warehouse Image -->
         <div class="w-1/2 relative">
             <img src="{{ asset('images/warehouse.png')}}" alt="Warehouse" class="object-cover w-full h-full">
         </div>
