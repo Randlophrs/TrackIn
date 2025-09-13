@@ -34,7 +34,6 @@ Saat ini, proyek masih dalam tahap awal pengembangan, namun sudah memiliki simul
    ```bash
    composer install
    npm install 
-   npm run dev
    ```
 
 3. **Konfigurasi Environment**  
@@ -57,6 +56,7 @@ Saat ini, proyek masih dalam tahap awal pengembangan, namun sudah memiliki simul
 6. **Jalankan Aplikasi**  
    ```bash
    php artisan serve
+   npm run dev
    ```  
 
 ## 📌 Rencana Pengembangan  

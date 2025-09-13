@@ -132,10 +132,11 @@
                     <div
                         class="flex items-center rounded-xl px-8 py-2 gap-4 hover:bg-[#3f4fff] transition duration-300 ease-in-out cursor-pointer">
                         <img src="{{asset('images/profiles/' . $user->profile_picture)}}" alt=""
-                            class="w-12 h-12 rounded-full object-cover bg-[#FDFFFC]">
+                            class="w-12 h-12 rounded-full object-cover bg-[#5260F0]">
                         <h1 class="text-xl">Profile</h1>
                     </div>
                 </a>
+            </div>
         </aside>
 
         <main class="ml-72 flex-1 overflow-y-auto p-8">
