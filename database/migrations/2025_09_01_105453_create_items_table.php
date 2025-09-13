@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->string('name');
             $table->integer('quantity')->default(0);
-            $table->string('image')->default('images/icons/item-default.png');
+            $table->string('image')->default('item-default.png');
             $table->timestamps();
         });
     }

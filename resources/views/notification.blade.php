@@ -3,15 +3,33 @@
 @section('title', 'Notifikasi')
 
 @section('content')
-    <div class="container mx-auto p-4">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let height = window.innerHeight - 300;
+            let url = new URL(window.location.href);
+
+            let historyRowHeight = 70;
+            let historyPerPage = Math.floor((height) / historyRowHeight);
+            if (isNaN(historyPerPage) || historyPerPage <= 0) {
+                historyPerPage = 1;
+            }
+
+            if (!url.searchParams.has("per_page")) {
+                url.searchParams.set("per_page", historyPerPage);
+                window.location.href = url.toString();
+            }
+        });
+    </script>
+
+    <div class="container mx-auto px-4">
         <div class="flex justify-between items-center mb-5">
             <h1 class="text-[40px] font-bold">Notifikasi</h1>
         </div>
 
-        <div class="h-[820px] flex flex-col border-2 border-[#1D4ED850] rounded-lg py-3">
+        <div class="h-[80vh] flex flex-col border-2 border-[#1D4ED850] rounded-lg py-3">
             <div class="h-full flex flex-col justify-between text-center rounded-lg">
                 @if ($notifications->isEmpty())
-                    <p class="py-2 px-4 mt-80 text-[32px]">Belum ada Notifikasi.</p>
+                    <p class="mt-80 px-4 text-[32px]">Belum ada Notifikasi.</p>
                 @else
                     <div class="space-y-4">
                         @foreach ($notifications as $notification)
@@ -36,7 +54,9 @@
                                             {{date('H:i d M', strtotime($notification->created_at))}}
                                         </p>
                                     </div>
-                                    <p class="text-[16px]">{{ $notification->message }}</p>
+                                    <div class="flex">
+                                        <p class="text-[16px]">{{ $notification->message }}</p>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach

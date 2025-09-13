@@ -8,61 +8,54 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-100">
+<body>
+    <div>
+        @extends('layouts.popup')
+    </div>
+
     <div class="flex h-screen">
-        <div class="w-1/2 bg-blue-700 flex items-center justify-center text-white">
+        <div class="w-1/2 bg-[#5260F0] flex items-center justify-center text-[#FDFFFC]">
             <div class="w-full max-w-md px-8 pb-40">
                 <div class="justify-center text-center">
                     <h1 class="text-[48px] font-bold mb-2">Selamat Datang</h1>
-                    <p class="mb-6 text-[24px]">Silahkan Register</p>
+                    <p class="mb-6 text-[24px]">Isi data di bawah untuk mendaftar</p>
                 </div>
                 <form action="{{ route('register-post') }}" method="POST" class="pt-16">
                     @csrf
 
                     <div class="mb-4">
-                        <label class="block mb-1 text-base">Nama </label>
+                        <label class="block mb-1 text-xl">Nama </label>
                         <input name="name" type="text"
-                            class="w-full px-4 py-2 rounded bg-white text-black focus:outline-none"
-                            placeholder="Nama lengkap">
-                        @error('name')
-                            <div style="font-size: 14px;" class="text-red-500">{{ $message }}</div>
-                        @enderror
+                            class="w-full px-4 py-2 rounded bg-[#FDFFFC] text-[#170A1C] focus:outline-none"
+                            placeholder="Nama lengkap" autocomplete="off">
                     </div>
 
                     <div class="mb-4">
-                        <label class="block mb-1 text-base">Email</label>
+                        <label class="block mb-1 text-xl">Email</label>
                         <input name="email" type="email"
-                            class="w-full px-4 py-2 rounded bg-white text-black focus:outline-none" placeholder="Email">
-                        @error('email')
-                            <div style="font-size: 14px;" class="text-red-500">{{ $message }}</div>
-                        @enderror
+                            class="w-full px-4 py-2 rounded bg-[#FDFFFC] text-[#170A1C] focus:outline-none"
+                            placeholder="Email" autocomplete="off">
                     </div>
 
                     <div class="mb-2">
-                        <label class="block mb-1 text-base">Password</label>
+                        <label class="block mb-1 text-xl">Password</label>
                         <input name="password" type="password"
-                            class="w-full px-4 py-2 rounded bg-white text-black focus:outline-none"
-                            placeholder="Password">
-                        @error('password')
-                            <div style="font-size: 14px;" class="text-red-500">{{ $message }}</div>
-                        @enderror
+                            class="w-full px-4 py-2 rounded bg-[#FDFFFC] text-[#170A1C] focus:outline-none"
+                            placeholder="Password" autocomplete="new-password">
                     </div>
 
                     <div class="mb-2">
-                        <label class="block mb-1 text-base">Konfirmasi password</label>
+                        <label class="block mb-1 text-xl">Konfirmasi password</label>
                         <input name="password_confirmation" type="password"
-                            class="w-full px-4 py-2 rounded bg-white text-black focus:outline-none"
-                            placeholder="Password">
-                        @error('password_confirmation')
-                            <div style="font-size: 14px;" class="text-red-500">{{ $message }}</div>
-                        @enderror
+                            class="w-full px-4 py-2 rounded bg-[#FDFFFC] text-[#170A1C] focus:outline-none"
+                            placeholder="Password" autocomplete="off">
                     </div>
 
                     <button type="submit"
-                        class="text-base w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-xl font-semibold mt-5">Regsiter</button>
+                        class="text-xl w-full bg-[#FF8811] hover:bg-[#FF6C11] text-[#FDFFFC] py-2 rounded-md font-semibold mt-5 transition duraiton-300 ease-in-out">Regsiter</button>
                 </form>
-                <p class="mt-6 text-base text-center">
-                    Sudah Punya Akun ? <a href="{{ route('login') }}" class="underline hover:text-orange-300">Login</a>
+                <p class="mt-6 text-xl text-center">
+                    Sudah Punya Akun ? <a href="{{ route('login') }}" class="underline hover:text-[#FF6C11] transition duraiton-300 ease-in-out">Masuk</a>
                 </p>
             </div>
         </div>

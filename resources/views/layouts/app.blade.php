@@ -8,31 +8,19 @@
 
 <body>
     <div class="flex h-screen overflow-hidden">
-        <aside class="w-72 bg-blue-700 text-white flex flex-col fixed top-0 left-0 h-screen">
+        <aside class="w-72 bg-[#5260F0] text-[#FDFFFC] flex flex-col fixed top-0 left-0 h-screen">
             <div class="p-6 border-b border-blue-500">
-                <div class="flex items-center mb-4">
-                    <div
-                        class="bg-green-500 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white mr-2">
-                        T</div>
-                    <span class="text-xl font-semibold">Trackin</span>
-                </div>
-
-                <div class="flex items-center bg-blue-700 rounded-xl px-4 py-2 border-1 border-white">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.5 17.5L22 22" stroke="white" stroke-width="1.8" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                        <path
-                            d="M20 11C20 6.02944 15.9706 2 11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C15.9706 20 20 15.9706 20 11Z"
-                            stroke="white" stroke-width="1.8" stroke-linejoin="round" />
-                    </svg>
-
-                    <input type="text" placeholder="Cari" class="w-full px-3 focus:outline-none text-xl">
+                <div class="flex items-center">
+                    <div>
+                        <img src="{{asset('images/icons/TrackIn-Logo.png')}}" alt="Logo" class="w-16 h-16">
+                    </div>
+                    <span class="text-3xl font-semibold">Trackin</span>
                 </div>
             </div>
 
             <nav class="flex-1 px-4 py-6 space-y-2 text-xl">
                 <a href="/dashboard"
-                    class="flex items-center px-3 py-2 rounded-[12px] {{ request()->routeIs('dashboard') ? 'bg-orange-500 font-semibold' : 'hover:bg-blue-600' }}">
+                    class="flex items-center px-3 py-2 rounded-[12px] {{ request()->routeIs('dashboard') ? 'bg-orange-500 font-semibold' : 'hover:bg-[#3f4fff] transition duration-300 ease-in-out' }}">
                     <span class="mr-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_135_2551)">
@@ -58,7 +46,7 @@
                     </span> Halaman Utama
                 </a>
                 <a href="/items"
-                    class="flex items-center px-3 py-2 rounded-[12px] {{ request()->routeIs('items.index') ? 'bg-orange-500 font-semibold' : 'hover:bg-blue-600' }}">
+                    class="flex items-center px-3 py-2 rounded-[12px] {{ request()->routeIs('items.index') || request()->routeIs('items.show') ? 'bg-orange-500 font-semibold' : 'hover:bg-[#3f4fff] transition duration-300 ease-in-out' }}">
                     <span class="mr-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_135_2559)">
@@ -78,7 +66,7 @@
                     </span> Daftar Barang
                 </a>
                 <a href="{{route('loan')}}"
-                    class="flex items-center px-3 py-2 rounded-[12px] {{ request()->routeIs('loan') ? 'bg-orange-500 font-semibold' : 'hover:bg-blue-600' }}">
+                    class="flex items-center px-3 py-2 rounded-[12px] {{ request()->routeIs('loan') ? 'bg-orange-500 font-semibold' : 'hover:bg-[#3f4fff] transition duration-300 ease-in-out' }}">
                     <span class="mr-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_135_2565)">
@@ -101,7 +89,7 @@
                     </span> Peminjaman Saya
                 </a>
                 <a href="{{route('history')}}"
-                    class="flex items-center px-3 py-2 rounded-[12px] {{ request()->routeIs('history') ? 'bg-orange-500 font-semibold' : 'hover:bg-blue-600' }}">
+                    class="flex items-center px-3 py-2 rounded-[12px] {{ request()->routeIs('history') ? 'bg-orange-500 font-semibold' : 'hover:bg-[#3f4fff] transition duration-300 ease-in-out' }}">
                     <span class="mr-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_135_2573)">
@@ -121,7 +109,7 @@
                     </span> Riwayat Pinjaman
                 </a>
                 <a href="{{route('notification')}}"
-                    class="flex items-center px-3 py-2 rounded-[12px] {{ request()->routeIs('notification') ? 'bg-orange-500 font-semibold' : 'hover:bg-blue-600' }}">
+                    class="flex items-center px-3 py-2 rounded-[12px] {{ request()->routeIs('notification') ? 'bg-orange-500 font-semibold' : 'hover:bg-[#3f4fff] transition duration-300 ease-in-out' }}">
                     <span class="mr-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_135_2581)">
@@ -139,31 +127,22 @@
                 </a>
             </nav>
 
-            <div class="flex justify-center px-4 pb-6">
-                <a href="/login"
-                    class="flex items-center px-3 w-[calc(100%/1.3)] bg-red-600 hover:bg-red-700 text-white py-2 rounded-[12px] text-xl font-semibold">
-                    <span class="mr-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_224_1856)">
-                                <path
-                                    d="M22.8293 9.17198L18.9503 5.29298C18.7617 5.11082 18.5091 5.01003 18.2469 5.01231C17.9847 5.01458 17.7338 5.11975 17.5484 5.30516C17.363 5.49057 17.2579 5.74138 17.2556 6.00358C17.2533 6.26578 17.3541 6.51838 17.5363 6.70698L21.4153 10.586C21.5305 10.7035 21.6312 10.8344 21.7153 10.976C21.7003 10.976 21.6883 10.968 21.6733 10.968L5.98926 11C5.72404 11 5.46969 11.1053 5.28215 11.2929C5.09461 11.4804 4.98926 11.7348 4.98926 12C4.98926 12.2652 5.09461 12.5196 5.28215 12.7071C5.46969 12.8946 5.72404 13 5.98926 13L21.6673 12.968C21.6953 12.968 21.7183 12.954 21.7453 12.952C21.6566 13.1211 21.5441 13.2767 21.4113 13.414L17.5323 17.293C17.4367 17.3852 17.3606 17.4956 17.3082 17.6176C17.2557 17.7396 17.2282 17.8708 17.227 18.0036C17.2259 18.1364 17.2512 18.268 17.3014 18.3909C17.3517 18.5138 17.426 18.6255 17.5199 18.7194C17.6138 18.8133 17.7254 18.8875 17.8483 18.9378C17.9712 18.9881 18.1029 19.0134 18.2357 19.0122C18.3684 19.0111 18.4997 18.9835 18.6217 18.9311C18.7437 18.8787 18.854 18.8025 18.9463 18.707L22.8253 14.828C23.5751 14.0779 23.9964 13.0606 23.9964 12C23.9964 10.9393 23.5751 9.92209 22.8253 9.17198H22.8293Z"
-                                    fill="white" />
-                                <path
-                                    d="M7 22H5C4.20435 22 3.44129 21.6839 2.87868 21.1213C2.31607 20.5587 2 19.7956 2 19V5C2 4.20435 2.31607 3.44129 2.87868 2.87868C3.44129 2.31607 4.20435 2 5 2H7C7.26522 2 7.51957 1.89464 7.70711 1.70711C7.89464 1.51957 8 1.26522 8 1C8 0.734784 7.89464 0.48043 7.70711 0.292893C7.51957 0.105357 7.26522 0 7 0L5 0C3.67441 0.00158786 2.40356 0.528882 1.46622 1.46622C0.528882 2.40356 0.00158786 3.67441 0 5L0 19C0.00158786 20.3256 0.528882 21.5964 1.46622 22.5338C2.40356 23.4711 3.67441 23.9984 5 24H7C7.26522 24 7.51957 23.8946 7.70711 23.7071C7.89464 23.5196 8 23.2652 8 23C8 22.7348 7.89464 22.4804 7.70711 22.2929C7.51957 22.1054 7.26522 22 7 22Z"
-                                    fill="white" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_224_1856">
-                                    <rect width="24" height="24" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                    </span>Log
-                    out</a>
-            </div>
+            <div class="flex justify-center pb-6">
+                <a href="{{route('profile')}}">
+                    <div
+                        class="flex items-center rounded-xl px-8 py-2 gap-4 hover:bg-[#3f4fff] transition duration-300 ease-in-out cursor-pointer">
+                        <img src="{{asset('images/profiles/' . $user->profile_picture)}}" alt=""
+                            class="w-12 h-12 rounded-full object-cover bg-[#FDFFFC]">
+                        <h1 class="text-xl">Profile</h1>
+                    </div>
+                </a>
         </aside>
 
         <main class="ml-72 flex-1 overflow-y-auto p-8">
+            <div>
+                @extends('layouts.popup')
+            </div>
+
             @yield('content')
         </main>
     </div>

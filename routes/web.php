@@ -19,12 +19,8 @@ Route::get('/dashboard', [AuthController::class, 'showDashboard'])->name('dashbo
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/items', [ItemController::class, 'index'])->name('items.index')->middleware('auth');
-Route::get('/items/create', [ItemController::class, 'create'])->name('items.create')->middleware('auth');
-Route::post('/items', [ItemController::class, 'store'])->name('items.store')->middleware('auth');
 Route::get('/items/{id}', [ItemController::class, 'show'])->name('items.show')->middleware('auth');
-Route::get('/items/{id}/edit', [ItemController::class, 'edit'])->name('items.edit')->middleware('auth');
-Route::put('/items/{id}', [ItemController::class, 'update'])->name('items.update')->middleware('auth');
-Route::delete('/items/{id}', [ItemController::class, 'destroy'])->name('items.destroy')->middleware('auth');
+Route::post('/items/{id}/loan', [LoanController::class, 'store'])->name('items.loan')->middleware('auth');
 
 Route::get('/history', [LoanController::class, 'history'])->name('history')->middleware('auth');
 
@@ -32,3 +28,6 @@ Route::get('/loan', [LoanController::class, 'index'])->name('loan')->middleware(
 Route::post('/loans/{loan}/return', [LoanController::class, 'returnLoan'])->name('loans.return');
 
 Route::get('/notifications', [AuthController::class, 'showNotifications'])->name('notification')->middleware('auth');
+
+Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile')->middleware('auth');
+Route::post('/profile', [AuthController::class, 'updateProfile'])->name('profile.update')->middleware('auth');
