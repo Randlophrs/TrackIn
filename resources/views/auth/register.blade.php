@@ -14,13 +14,13 @@
     </div>
 
     <div class="flex h-screen">
-        <div class="w-1/2 bg-[#5260F0] flex items-center justify-center text-[#FDFFFC]">
+        <div class="w-1/2 bg-[#525FE1] flex items-center justify-center text-[#FDFFFC]">
             <div class="w-full max-w-md px-8 pb-40">
                 <div class="justify-center text-center">
                     <h1 class="text-[48px] font-bold mb-2">Selamat Datang</h1>
                     <p class="mb-6 text-[24px]">Isi data di bawah untuk mendaftar</p>
                 </div>
-                <form action="{{ route('register-post') }}" method="POST" class="pt-16">
+                <form action="{{ route('register') }}" method="POST" class="pt-16">
                     @csrf
 
                     <div class="mb-4">
@@ -52,7 +52,7 @@
                     </div>
 
                     <button type="submit"
-                        class="text-xl w-full bg-[#FF8811] hover:bg-[#FF6C11] text-[#FDFFFC] py-2 rounded-md font-semibold mt-5 transition duraiton-300 ease-in-out">Regsiter</button>
+                        class="text-xl w-full bg-[#F86F03] hover:bg-[#FF6C11] text-[#FDFFFC] py-2 rounded-md font-semibold mt-5 transition duraiton-300 ease-in-out">Regsiter</button>
                 </form>
                 <p class="mt-6 text-xl text-center">
                     Sudah Punya Akun ? <a href="{{ route('login') }}" class="underline hover:text-[#FF6C11] transition duraiton-300 ease-in-out">Masuk</a>

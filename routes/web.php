@@ -4,30 +4,37 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoanController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LogoutController;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('login');
 });
 
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register-post');
+# Authentication
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login-post');
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
-Route::get('/dashboard', [AuthController::class, 'showDashboard'])->name('dashboard')->middleware('auth');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
+# Items
 Route::get('/items', [ItemController::class, 'index'])->name('items.index')->middleware('auth');
 Route::get('/items/{id}', [ItemController::class, 'show'])->name('items.show')->middleware('auth');
 Route::post('/items/{id}/loan', [LoanController::class, 'store'])->name('items.loan')->middleware('auth');
 
-Route::get('/history', [LoanController::class, 'history'])->name('history')->middleware('auth');
-
+# User
 Route::get('/loan', [LoanController::class, 'index'])->name('loan')->middleware('auth');
 Route::post('/loans/{loan}/return', [LoanController::class, 'returnLoan'])->name('loans.return');
 
-Route::get('/notifications', [AuthController::class, 'showNotifications'])->name('notification')->middleware('auth');
+Route::get('/dashboard', [UserController::class, 'showDashboard'])->name('dashboard')->middleware('auth');
+Route::get('/history', [UserController::class, 'ShowHistory'])->name('history')->middleware('auth');
 
-Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile')->middleware('auth');
-Route::post('/profile', [AuthController::class, 'updateProfile'])->name('profile.update')->middleware('auth');
+Route::get('/notifications', [UserController::class, 'showNotifications'])->name('notification')->middleware('auth');
+
+Route::get('/profile', [UserController::class, 'showProfile'])->name('profile')->middleware('auth');
+Route::post('/profile', [UserController::class, 'updateProfile'])->name('profile.update')->middleware('auth');

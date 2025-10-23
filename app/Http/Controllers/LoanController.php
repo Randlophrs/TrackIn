@@ -23,9 +23,9 @@ class LoanController extends Controller
                     $q->whereRaw('LOWER(name) = ?', [strtolower($current)]);
                 });
             })
-            ->paginate($request->input('per_page')); // misalnya 5 per page
+            ->paginate($request->input('per_page'));
 
-        return view('loans.loan', compact('loans', 'user', 'current'));
+        return view('users.loans.index', compact('loans', 'user', 'current'));
     }
 
 
@@ -63,11 +63,9 @@ class LoanController extends Controller
     {
         $loan = Loan::findOrFail($id);
 
-        // update return_date sekarang
         $loan->return_date = now();
         $loan->save();
 
-        // kembalikan stok barang
         $loan->item->quantity += $loan->quantity;
         $loan->item->save();
 
@@ -80,22 +78,5 @@ class LoanController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Barang berhasil dikembalikan.');
-    }
-
-    public function history(Request $request)
-    {
-        $user = Auth::user();
-        $current = $request->input('category', 'semua');
-        
-        $loans = Loan::where('user_id', $user->id)
-            ->whereNotNull('return_date')
-            ->when($current !== 'semua', function ($query) use ($current) {
-                $query->whereHas('item.category', function ($q) use ($current) {
-                    $q->whereRaw('LOWER(name) = ?', [strtolower($current)]);
-                });
-            })
-            ->paginate($request->input('history_per_page', 1), ['*'], 'history_page');
-
-        return view('loans.history', compact('loans', 'user'));
     }
 }

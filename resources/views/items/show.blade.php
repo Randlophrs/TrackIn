@@ -8,16 +8,17 @@
             <h1 class="text-[40px] font-bold">Peminjaman Barang</h1>
         </div>
 
-        <div class="flex gap-5 border-2 border-[#5260F0] rounded-xl">
-            <div class="w-1/3 p-4">
-                <img src="{{ asset('images/items/' . $item->image) }}" alt="Image"
-                    class="w-24 h-24 object-cover mb-2 rounded-lg">
-                <p class="text-3xl font-bold">{{$item->name}}</p>
-                <p class="text-base">{{$item->category->name}}</p>
 
-                <p class="text-2xl">Tersedia: {{$item->quantity}}</p>
+        <div class="flex border-2 border-[#5260F0] rounded-xl py-5 items-center justify-around">
+            <div class="w-1/8 p-4">
+                    <img src="{{ asset('images/items/' . $item->image) }}" alt="Image"
+                        class="w-24 h-24 object-cover mb-2 rounded-lg">
+                    <p class="text-3xl font-bold">{{$item->name}}</p>
+                    <p class="text-base">{{$item->category->name}}</p>
+
+                    <p class="text-2xl">Tersedia: {{$item->quantity}}</p>
             </div>
-            <div class="w-1/3 p-4">
+            <div class="w-1/2 p-4">
                 <form action="{{route('items.loan', $item->id)}}" method="POST" class="space-y-4">
                     @csrf
                     <input type="hidden" name="item_id" value="{{ $item->id }}">

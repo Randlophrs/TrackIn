@@ -13,60 +13,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 
-class AuthController extends Controller
+class UserController extends Controller
 {
-    public function showRegister()
-    {
-        return view('auth.register');
-    }
-
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name'     => 'required',
-            'email'    => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
-
-        if ($validator->fails()) {
-            if ($validator->errors()->has('email')) {
-                return back()->withInput()->with('fail', 'Email sudah terdaftar');
-            }
-
-            return back()->withInput()->with('fail', 'Regsiter gagal! periksa data anda');
-        }
-
-        $user = User::create([
-            'name'            => $request->name,
-            'email'           => $request->email,
-            'password'        => Hash::make($request->password),
-            'profile_picture' => 'user-default.png',
-        ]);
-
-        if ($user) {
-            return redirect()->route('login')->with('success', 'Register berhasil! Silakan login.');
-        }
-
-        return back()->with('fail', 'Register gagal, coba lagi.');
-    }
-
-
-    public function showLogin()
-    {
-        return view('auth.login');
-    }
-
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard')->with('success', 'Login berhasil, selamat datang');
-        }
-
-        return back()->with('fail', 'Login gagal, periksa kembali email atau password');
-    }
-
     public function showDashboard(Request $request)
     {
         $user = Auth::user();
@@ -78,13 +26,24 @@ class AuthController extends Controller
         $notifications = Notification::where('user_id', $user->id)
             ->paginate($request->input('notif_per_page', 5), ['*'], 'notif_page');
 
-        return view('dashboard', compact('user', 'loans', 'notifications', 'items'));
+        return view('users.dashboard', compact('user', 'loans', 'notifications', 'items'));
     }
 
-    public function logout()
+    public function ShowHistory(Request $request)
     {
-        Auth::logout();
-        return redirect()->route('login');
+        $user = Auth::user();
+        $current = $request->input('category', 'semua');
+        
+        $loans = Loan::where('user_id', $user->id)
+            ->whereNotNull('return_date')
+            ->when($current !== 'semua', function ($query) use ($current) {
+                $query->whereHas('item.category', function ($q) use ($current) {
+                    $q->whereRaw('LOWER(name) = ?', [strtolower($current)]);
+                });
+            })
+            ->paginate($request->input('history_per_page', 1), ['*'], 'history_page');
+
+        return view('users.loans.history', compact('loans', 'user'));
     }
 
     public function showNotifications(Request $request)
@@ -92,13 +51,13 @@ class AuthController extends Controller
         $user = Auth::user();
         $notifications = Notification::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate($request->input('per_page'));
 
-        return view('notification', compact('notifications', 'user'));
+        return view('users.profile.notification', compact('notifications', 'user'));
     }
 
     public function showProfile()
     {
         $user = Auth::user();
-        return view('profile.index', compact('user'));
+        return view('users.profile.index', compact('user'));
     }
 
     public function updateProfile(Request $request)
@@ -110,7 +69,7 @@ class AuthController extends Controller
             'email'           => 'required|email|unique:users,email,' . $user->id,
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'oldpassword'     => 'nullable|string|min:6',
-            'newpassword'     => 'nullable|string|min:6|confirmed', // gunakan jika pakai konfirmasi password
+            'newpassword'     => 'nullable|string|min:6|confirmed',
         ]);
 
         $data = [
@@ -134,7 +93,6 @@ class AuthController extends Controller
             $data['profile_picture'] = $fileName;
         }
 
-        // Handle change password
         if ($request->filled('oldpassword') || $request->filled('newpassword')) {
             if (!$request->filled('oldpassword') || !$request->filled('newpassword')) {
                 return back()->with('fail', 'Kata sandi salah!');
