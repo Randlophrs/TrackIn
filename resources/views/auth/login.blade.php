@@ -6,52 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TrackIn - Login</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        #tsparticles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
 </head>
 
 <body>
-    <div>
-        @extends('layouts.popup')
+    @extends('layouts.particles')
+
+    <div class="flex fixed m-8 items-center">
+        <img src="{{ asset('images/icons/TrackIn-Logo.png') }}" alt="TrackIn" width="64px" height="64px">
+        <p class="text-4xl text-white">TrackIn</p>
     </div>
 
     <div class="flex h-screen">
-        <div class="w-1/2 relative">
-            <img src="{{ asset('images/warehouse.png')}}" alt="Warehouse" class="object-cover w-full h-full">
+        <div class="flex w-1/2 bg-indigo-500 justify-center items-center">
+            <div id="warehouse-icon"></div>
         </div>
 
-        <div class="w-1/2 bg-[#5260F0] flex items-center justify-center text-[#FFF6F4]">
-            <div class="w-full max-w-md px-8 pb-40">
-                <div class="justify-center text-center">
-                    <h1 class="text-[48px] font-bold mb-2">Selamat Datang</h1>
-                    <p class="mb-6 text-[24px]">Silahkan Login</p>
-                </div>
-                <form action="{{ route('login') }}" method="POST" class="pt-16">
+        <div class="w-1/2 flex justify-center items-center">
+            <div class="w-3/5 max-w-md px-4 py-6 bg-white border-1 border-gray-200 rounded-2xl drop-shadow-2xl drop-shadow-gray-200">
+                <h2 class="text-4xl font-bold mb-2 text-gray-900">Selamat Datang</h2>
+                <p class="text-lg text-gray-500 mb-6">Silahkan Masuk</p>
+
+                <form action="{{ route('login') }}" method="POST" class="space-y-4">
                     @csrf
-
-                    <div class="mb-4">
-                        <label class="block mb-1 text-xl font-bold">Email</label>
-                        <input name="email" type="email"
-                            class="w-full px-4 py-2 rounded bg-[#FFF6F4] text-[#170A1C] focus:outline-none"
-                            placeholder="Email">
+                    <div>
+                        <label for="email" class="block text-gray-700">Email</label>
+                        <input type="email" name="email" id="email" required
+                            class="mt-1 block w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 border-gray-500">
                     </div>
-
-                    <div class="mb-2">
-                        <label class="block mb-1 text-xl font-bold">Password</label>
-                        <input name="password" type="password"
-                            class="w-full px-4 py-2 rounded bg-[#FFF6F4] text-[#170A1C] focus:outline-none"
-                            placeholder="Password">
+                    <div>
+                        <label for="password" class="block text-gray-700">Password</label>
+                        <input type="password" name="password" id="password" required
+                            class="mt-1 block w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 border-gray-500">
                     </div>
-
+                    {{-- <div class="flex items-center justify-between">
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" name="remember" class="h-4 w-4">
+                            Remember me
+                        </label>
+                        <a href="{{ route('password.request') }}" class="text-sm text-indigo-600 hover:underline">Forgot
+                            Password</a>
+                    </div> --}}
 
                     <button type="submit"
-                        class="text-xl w-full bg-[#f87d1c] hover:bg-[#F86F03] text-[#FFF6F4] py-2 rounded-md font-semibold mt-5 transition duration-300 ease-in-out cursor-pointer">Masuk</button>
+                        class="text-lg w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 cursor-pointer transition">
+                        Masuk
+                    </button>
+
+                    <p class="text-lg text-center text-gray-500 mt-4">
+                        Belum memiliki akun? <a href="{{ route('register') }}"
+                            class="text-blue-600 hover:underline">Daftar</a>
+                    </p>
                 </form>
-                <p class="mt-6 text-xl text-center">
-                    Belum Punya Akun ? <a href="{{ route('register') }}"
-                        class="underline hover:text-[#F86F03] transition duration-300 ease-in-out">Daftar</a>
-                </p>
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/lottie.min.js') }}"></script>
+    <script>
+        lottie.loadAnimation({
+            container: document.getElementById('warehouse-icon'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '{{ asset('animated/login-warehouse.json') }}'
+        });
+    </script>
+
 </body>
 
 </html>
